@@ -3,11 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Test</title>
+    <title>FormValidate</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="square"></div>
+    <form>
+        <label for="name">Name
+            <input type="text" id="name" data-val="\S" data-mes="Введите значение" data-id="nameMess">
+        </label>
+        <span id="nameMess"></span>
+        <br>
+        <label for="email">Email
+            <input type="text" id="email" data-val="\b[a-z0-9._]+@[a-z0-9.-]+\.[a-z]{2, 4}\b" data-mes="Вы ввели не правельный email" data-id="mailMess">
+        </label>
+        <span id="mailMess"></span>
+        <br>
+        <label for="code">Zipcode
+            <input type="text" id="code" data-val="^\d{5}$" data-mes="Почтовый индекс введён не правельно" data-id="codMess">
+        </label>
+        <span id="codMess"></span>
+        <br>
+        <input type="submit" value="Submit">
+    </form>
     <script src="script.js"></script>
 </body>
 </html>

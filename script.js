@@ -1,34 +1,50 @@
 window.addEventListener('DOMContentLoaded', () => {
+
     function init() {
-        let elem = document.querySelector('.square');
-        elem.addEventListener('mousedown', function(evt) {
-            drag(this, evt);
-        });
-    };
+        let formValidation = false;
+        let inputs = document.querySelectorAll('[type=text]');
+        let form = document.querySelector('form');
+        
+        for (const inp of inputs) {
+            let pattern = inp.getAttribute('data-val');
+            
 
-    function drag(element, event) {
-        let startX = event.clientX,
-            startY = event.clientY;
-
-        let originX = element.offsetLeft,
-            originY = element.offsetTop;
-
-        let deltaX = startX - originX,
-            deltaY = startY - originY;
-
-        document.addEventListener('mousemove', moveHendler);
-        document.addEventListener('mouseup', upHendler);
-
-        function moveHendler(evt) {
-            element.style.left = (evt.clientX - deltaX) + 'px';
-            element.style.top = (evt.clientY - deltaY) + 'px';
+            if (pattern) {
+                inp.addEventListener('change', function() {
+                    let pattern = this.dataset.val,
+                        mes = this.dataset.mes,
+                        id = this.dataset.id,
+                        value = this.value;
+                        console.log(mes);
+            
+                    let res = value.search(pattern);
+            
+                    if (res == -1) {
+                        document.getElementById(id).innerHTML = mes;
+                        this.classList.add('invalid');
+                    } else {
+                        document.getElementById(id).innerHTML = '';
+                        this.classList.add('valid');
+                    }
+                });
+                formValidation = true;
+            }
         }
-
-        function upHendler() {
-            document.removeEventListener('mouseup', upHendler);
-            document.removeEventListener('mousemove', moveHendler);
+        if (formValidation) {
+            form.addEventListener('submit', () => {
+                let invalid = false;
+                for (const inp of inputs) {
+                    if (inp.classList.contains('invalid')) {
+                        invalid = true;
+                    }
+                };
+                if (invalid) {
+                    alert('Допущена ошибка при заполнении формы');
+                    return false;
+                }
+            });
         }
-    };
+    }
 
     init();
 })

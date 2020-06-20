@@ -1,8 +1,11 @@
-.square {
-    position: absolute;
-    top: 0;
-    left: 29;
-    width: 50px;
-    height: 50px;
-    background-color: blue;
+.valid {
+    background-color: greenyellow;
+}
+
+.invalid {
+    background-color: hotpink;
+}
+
+input {
+    margin-bottom: 30px;
 }
